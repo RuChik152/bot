@@ -2,16 +2,20 @@ import 'dotenv/config';
 
 export async function siteTracking (ctx: any){
     try {
-
+        let attentionStat = false;
         const req = await fetch(`${process.env.URL}`)
         console.log('STATUS: ', req.status);
         switch (req.status) {
             case 200:
-                // await ctx.replyWithHTML(`[ ${new Date()} ]${'\n'}The website <i>${process.env.URL}</i> is available. ${'\n'}Response code <b>${req.status}</b>`)
+                if (attentionStat) {
+                    await ctx.replyWithHTML(`[ ${new Date()} ]${'\n'}The website <i>${process.env.URL}</i> is available. ${'\n'}Response code <b>${req.status}</b>`)
+                    attentionStat = false
+                }
                 console.log(`[ ${new Date()} ] Success check STATUS CODE: ${req.status}`)
                 break;
             case 502:
                 await ctx.replyWithHTML(`[ ${new Date()} ]${'\n'}<b>!!!ATTENTION!!!</b> ${'\n'}Site ${process.env.URL} is down. ${'\n'}Status code: <b>${req.status}</b> `)
+                attentionStat = true;
                 break;
             default:
                 ctx.reply(`bot default answer`)
@@ -25,6 +29,7 @@ export async function siteTracking (ctx: any){
 }
 
 export async function siteChecker (ctx: any) {
+
     try {
         const req = await fetch(`${process.env.URL}`)
         console.log('STATUS: ', req.status);
