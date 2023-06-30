@@ -7,8 +7,8 @@ export async function siteTracking (ctx: any){
         console.log('STATUS: ', req.status);
         switch (req.status) {
             case 200:
-                await ctx.replyWithHTML(`[ ${new Date()} ]${'\n'}The website <i>${process.env.URL}</i> is available. ${'\n'}Response code <b>${req.status}</b>`)
-                console.log(`[ ${new Date()} ] Success check`)
+                // await ctx.replyWithHTML(`[ ${new Date()} ]${'\n'}The website <i>${process.env.URL}</i> is available. ${'\n'}Response code <b>${req.status}</b>`)
+                console.log(`[ ${new Date()} ] Success check STATUS CODE: ${req.status}`)
                 break;
             case 502:
                 await ctx.replyWithHTML(`[ ${new Date()} ]${'\n'}<b>!!!ATTENTION!!!</b> ${'\n'}Site ${process.env.URL} is down. ${'\n'}Status code: <b>${req.status}</b> `)
