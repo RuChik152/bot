@@ -1,13 +1,14 @@
 import 'dotenv/config';
 
+let attentionStat = false;
+
 export async function siteTracking (ctx: any){
     try {
-        let attentionStat = false;
         const req = await fetch(`${process.env.URL}`)
         console.log('STATUS: ', req.status);
         switch (req.status) {
             case 200:
-                if (attentionStat) {
+                if ( attentionStat ) {
                     await ctx.replyWithHTML(`[ ${new Date()} ]${'\n'}The website <i>${process.env.URL}</i> is available. ${'\n'}Response code <b>${req.status}</b>`)
                     attentionStat = false
                 }
